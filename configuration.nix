@@ -176,12 +176,21 @@
         nerd-fonts.jetbrains-mono
   ];
 
-
   # handle how programs handle screen share / file opening etc
   xdg.portal = {
     enable = true;
     extraPortals = [pkgs.xdg-desktop-portal-gtk];
   };
+
+  # Automatic updating
+  system.autoUpgrade.enable = false;
+  system.autoUpgrade.dates = "monthly";
+
+  #Automatic cleanup
+  nix.gc.automatic = true;
+  nix.gc.dates = "daily";
+  nix.gc.options = "--delete-older-than 3d";
+  nix.settings.auto-optimise-store = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
