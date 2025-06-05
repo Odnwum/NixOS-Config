@@ -85,7 +85,7 @@
 		# Function keys 
                 # Brightness
 		", XF86MonBrightnessUp, exec, brightnessctl set +5%"
-		", XF86MonBrightnessDown, exec, brightnessctl set 5%- n 1"
+		", XF86MonBrightnessDown, exec, brightnessctl set 5%- -n 1"
 	
                 # Volume
                 ",XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
