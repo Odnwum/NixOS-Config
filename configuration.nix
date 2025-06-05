@@ -8,6 +8,7 @@
   imports =
     [ # Include the results of the hardware scan.
 	./hardware-configuration.nix
+        ./nvf-config.nix
     ];
 
   nix.settings.experimental-features = ["nix-command" "flakes"];
@@ -155,18 +156,6 @@
   };
   services.hypridle.enable = true;
   programs.hyprlock.enable = true;
-
-  # enable nvf 
-  programs.nvf = {
-	enable = true;
-	settings = {
-		vim.theme.enable = true;
-		vim.theme.name = "gruvbox"; 
-		vim.theme.style = "dark";
-
-		vim.languages.nix.enable =true;
-	};
- };
 
   # fonts
   fonts.packages = with pkgs; [
