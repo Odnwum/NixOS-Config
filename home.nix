@@ -83,9 +83,15 @@
 	    	"SUPER, Q, killactive" # Kill active window 
 		
 		# Function keys 
+                # Brightness
 		", XF86MonBrightnessUp, exec, brightnessctl set +5%"
-		", XF86MonBrightnessDown, exec, brightnessctl set 5%-"
+		", XF86MonBrightnessDown, exec, brightnessctl set 5%- n 1"
 	
+                # Volume
+                ",XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
+                ",XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
+                ",XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+
 		# Workspace 
 		"SUPER, 1, workspace, 1" # Switch to workspace 1
 		"SUPER, 2, workspace, 2" # Switch to workspace 2 

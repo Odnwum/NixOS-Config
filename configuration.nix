@@ -8,7 +8,6 @@
   imports =
     [ # Include the results of the hardware scan.
 	./hardware-configuration.nix
-	#inputs.nvf.nixosModules.default
     ];
 
   nix.settings.experimental-features = ["nix-command" "flakes"];
@@ -64,7 +63,7 @@
   services.printing.enable = true;
 
   # Enable sound with pipewire.
-  hardware.pulseaudio.enable = false;
+  services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -112,7 +111,40 @@
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; [obsidian vesktop onlyoffice-bin vscode gcc python3 keepassxc neofetch brightnessctl xournalpp calibre notepadqq python312Packages.pip pipx ffmpeg git p7zip-rar syncthing xdotool waybar dunst libnotify hyprland swww alacritty rofi-wayland networkmanagerapplet wl-clipboard grim slurp xdg-desktop-portal xdg-desktop-portal-wlr zotify gh
+  environment.systemPackages = with pkgs; [
+  obsidian
+  vesktop onlyoffice-bin
+  vscode
+  gcc
+  python3
+  keepassxc
+  neofetch
+  brightnessctl
+  xournalpp
+  calibre
+  notepadqq
+  python312Packages.pip
+  pipx
+  ffmpeg
+  git
+  p7zip-rar
+  syncthing
+  xdotool
+  waybar
+  dunst
+  libnotify
+  hyprland
+  swww
+  alacritty
+  rofi-wayland
+  networkmanagerapplet
+  wl-clipboard
+  grim
+  slurp
+  xdg-desktop-portal
+  xdg-desktop-portal-wlr
+  zotify
+  gh
   #  wget
   ];
 
@@ -136,8 +168,14 @@
 	};
  };
 
-  # fonts 
-  
+  # fonts
+  fonts.packages = with pkgs; [
+	roboto
+	nerd-fonts.roboto-mono
+        nerd-fonts.fira-code
+        nerd-fonts.jetbrains-mono
+  ];
+
 
   # handle how programs handle screen share / file opening etc
   xdg.portal = {
