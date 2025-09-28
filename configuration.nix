@@ -8,7 +8,7 @@
   imports =
     [ # Include the results of the hardware scan.
 	./hardware-configuration.nix
-	#inputs.nvf.nixosModules.default
+        ./nvf-config.nix
     ];
 
   nix.settings.experimental-features = ["nix-command" "flakes"];
@@ -64,7 +64,7 @@
   services.printing.enable = true;
 
   # Enable sound with pipewire.
-  hardware.pulseaudio.enable = false;
+  services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -112,7 +112,41 @@
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; [obsidian vesktop onlyoffice-bin vscode gcc python3 keepassxc neofetch brightnessctl xournalpp calibre notepadqq python312Packages.pip pipx ffmpeg git p7zip-rar syncthing xdotool waybar dunst libnotify hyprland swww alacritty rofi-wayland networkmanagerapplet wl-clipboard grim slurp xdg-desktop-portal xdg-desktop-portal-wlr zotify gh
+  environment.systemPackages = with pkgs; [
+  obsidian
+  vesktop 
+  onlyoffice-bin
+  vscode
+  gcc
+  python3
+  keepassxc
+  neofetch
+  brightnessctl
+  xournalpp
+  calibre
+  notepadqq
+  python312Packages.pip
+  pipx
+  ffmpeg
+  git
+  p7zip-rar
+  syncthing
+  xdotool
+  waybar
+  dunst
+  libnotify
+  hyprland
+  swww
+  alacritty
+  rofi-wayland
+  networkmanagerapplet
+  wl-clipboard
+  grim
+  slurp
+  xdg-desktop-portal
+  xdg-desktop-portal-wlr
+  zotify
+  gh
   #  wget
   ];
 
@@ -124,26 +158,36 @@
   services.hypridle.enable = true;
   programs.hyprlock.enable = true;
 
-  # enable nvf 
-  programs.nvf = {
-	enable = true;
-	settings = {
-		vim.theme.enable = true;
-		vim.theme.name = "gruvbox"; 
-		vim.theme.style = "dark";
-
-		vim.languages.nix.enable =true;
-	};
- };
-
-  # fonts 
-  
+  # fonts
+  fonts.packages = with pkgs; [
+	roboto
+	nerd-fonts.roboto-mono
+        nerd-fonts.fira-code
+        nerd-fonts.jetbrains-mono
+  ];
 
   # handle how programs handle screen share / file opening etc
   xdg.portal = {
     enable = true;
     extraPortals = [pkgs.xdg-desktop-portal-gtk];
   };
+
+  # Automatic updating
+  system.autoUpgrade.enable = false;
+  system.autoUpgrade.dates = "monthly";
+
+  #Automatic cleanup
+  nix = {
+      gc = {
+        automatic = true;
+        dates = "daily";
+        options = "--delete-older-than 3d";
+      };
+
+      settings = {
+        auto-optimise-store = true;
+      };
+  }; 
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

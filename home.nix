@@ -48,7 +48,7 @@
 		# battery settings 
 		"battery" = {
                 states = {
-                    # good = 95;
+                    good = 80;
                     warning = 30;
                     critical = 15;
                 };
@@ -64,12 +64,30 @@
 		# hyprland workspaces settings 
 		"hyprland/workspaces" = {
 			"persistent-workspaces" = {
-				"*"= 3;
+				"*"= 5;
 			};
 			"format" = "{name}";
 		};
 	};
       };
+      style = ''
+        * {
+                border: none;
+                padding: 0;
+                margin: 2;
+                font-family: "JetBrainsMono Nerd Font", sans-serif;
+                font-size: 13px;
+        }
+
+        window#waybar {
+        background: rgba(30, 30, 46, 0.9);
+        color: #cdd6f4;
+        }
+
+        #clock {
+        padding: 0 10px;
+        }
+        '';
     };
 
     wayland.windowManager.hyprland = {
@@ -83,17 +101,27 @@
 	    	"SUPER, Q, killactive" # Kill active window 
 		
 		# Function keys 
+                # Brightness
 		", XF86MonBrightnessUp, exec, brightnessctl set +5%"
-		", XF86MonBrightnessDown, exec, brightnessctl set 5%-"
+		", XF86MonBrightnessDown, exec, brightnessctl set 5%- -n 1"
 	
+                # Volume
+                ",XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
+                ",XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
+                ",XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+
 		# Workspace 
 		"SUPER, 1, workspace, 1" # Switch to workspace 1
 		"SUPER, 2, workspace, 2" # Switch to workspace 2 
 		"SUPER, 3, workspace, 3" # Switch to workspace 3
+                "SUPER, 4, workspace, 4" 
+                "SUPER, 5, workspace, 5"
 
 		"SUPER_SHIFT, 1, movetoworkspace, 1" # Move active window to workspace 1
 		"SUPER_SHIFT, 2, movetoworkspace, 2" # Move active window to workspace 2
 		"SUPER_SHIFT, 3, movetoworkspace, 3" # Move active window to workspace 3
+                "SUPER_SHIFT, 4, movetoworkspace, 4"
+                "SUPER_SHIFT, 5, movetoworkspace, 5"
 
 		"SUPER_SHIFT, H, movewindow, l"  # Move window left
     		"SUPER_SHIFT, L, movewindow, r"  # Move window right
