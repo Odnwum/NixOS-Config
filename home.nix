@@ -1,10 +1,14 @@
-{inputs, pkgs, ...}:
+{inputs, pkgs, config, ...}:
+let
+  scriptsPath = "${config.home.homeDirectory}/.dotfiles/scripts";
+in
 {
     home.username = "odnwum";
     home.homeDirectory = "/home/odnwum";
     home.stateVersion = "24.05";
 
     programs.home-manager.enable = true;
+
 
     programs.alacritty = {
         enable = true;
@@ -59,9 +63,9 @@
 		position = "top";
 		
 		# modules in place 
-		modules-left = ["battery" "network" "bluetooth" "tray"];
+		modules-left = ["battery" "network" "bluetooth" "cpu" "tray"];
 		modules-center = ["hyprland/workspaces"];
-		modules-right = ["cpu" "memory" "clock"];
+		modules-right = ["custom/volume" "custom/brightness" "clock"];
 
 
 		# battery settings 
@@ -80,6 +84,24 @@
                 format-icons = ["󰂎" "󰁼" "󰁾" "󰂀" "󰁹"];
                 };
 
+                "clock"= {
+    "tooltip-format"= "{calendar}";
+    "format-alt"= "{:%a, %d %b %Y}";
+    "format"= "[ {:%H:%M} ]";
+  };
+
+                "custom/volume" = {
+                        exec = "${scriptsPath}/volume.sh";
+                        interval = 1;
+                        return-type = "json";
+                 };
+                
+                "custom/brightness" = {
+                        exec = "${scriptsPath}/brightness.sh";
+                        interval = 2;
+                        return-type = "json";
+                };
+
 		# hyprland workspaces settings 
 		"hyprland/workspaces" = {
 			"persistent-workspaces" = {
@@ -90,23 +112,30 @@
 	    };
         };
       style = ''
-        * {
-                border: none;
-                padding: 0;
-                margin: 2;
-                font-family: "JetBrainsMono Nerd Font", sans-serif;
-                font-size: 13px;
-        }
+       waybar * {
+  border: 4px;
+  border-radius: 4px;
+  min-height: 0;
+  font-family: "JetBrainsMono Nerd Font";
+  font-size: 14px;
+}
 
-        window#waybar {
-        background: rgba(30, 30, 46, 0.9);
-        color: #cdd6f4;
-        }
+#waybar {
+  background-color: #3b4252;
+  border-radius: 2px;
+  opacity: 0.95;
+}
 
-        #clock {
-        padding: 0 10px;
-        }
-        '';
+window#waybar {
+  background: #282c34;
+  transition-property: background-color;
+  transition-duration: 0.5s;
+  color: #9cdef2;
+  border: 3px solid #61afef;
+  border-left: 3px solid #56b6c2;
+  border-right: 3px solid #56b6c2;
+}
+                        '';
     };
 
     wayland.windowManager.hyprland = {
@@ -170,7 +199,7 @@
 			scroll_factor = 0.75;
 	          };
 	    };
-	exec-once = "sh ./scripts/start.sh";
+	exec-once = "sh ~/.dotfiles/scripts/start.sh";
 	};
     };
 }
