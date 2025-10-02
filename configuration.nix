@@ -187,7 +187,23 @@
       settings = {
         auto-optimise-store = true;
       };
-  }; 
+  };
+
+  services.auto-cpufreq = {
+        enable = false; 
+        settings = {
+                battery = {
+                        governor = "powersave";
+                        turbo = "never";
+                        };
+                charger = {
+                        governor = "powersave";
+                        turbo = "auto";
+                        };
+                };
+        };
+
+  # List services that you want to enable:
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

@@ -17,10 +17,13 @@
                         autocomplete.nvim-cmp.enable = true; # Autocomplete
 
                         languages = {
-                                enableLSP = true;
                                 enableTreesitter = true;
 
                                 nix.enable =true;
+                        };
+
+                        lsp = {
+                                enable = true;
                         };
                 };
         };

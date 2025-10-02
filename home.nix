@@ -1,4 +1,4 @@
-{inputs,...}:
+{inputs, pkgs, ...}:
 {
     home.username = "odnwum";
     home.homeDirectory = "/home/odnwum";
@@ -31,6 +31,25 @@
             init.defaultBranch = "main";
         };
     };
+
+        # Notifications 
+        services.mako = {
+                enable = true;
+                settings = {
+                        default-timeout = 5000;
+                        background-color = "#1e1e2e";
+                        border-color = "#89b4fa";
+                        text-color = "#cdd6f4";
+                        border-size = 2;
+                        font = "JetBrainsMono Nerd Font 10";
+                        icons = true;
+
+                };
+        };
+        
+        home.packages = with pkgs; [
+                libnotify
+];
 
     programs.waybar = {
 	enable = true;
@@ -68,8 +87,8 @@
 			};
 			"format" = "{name}";
 		};
-	};
-      };
+	    };
+        };
       style = ''
         * {
                 border: none;
@@ -136,6 +155,12 @@
 		# Configure screen shot 
 		", Print, exec, grim -g \"$(slurp -d)\" - | wl-copy"
 
+                # Lock screen via mod L 
+                "SUPER, L, exec, hyprlock"
+
+                # Sleep system via super shift L 
+                "SUPER_SHIFT, L, exec, systemctl suspend" 
+
             
 	    ];
             monitor = "eDP-1, 1920x1080@60, 0x0, 1";
@@ -145,7 +170,7 @@
 			scroll_factor = 0.75;
 	          };
 	    };
-	exec-once = "sh ~/programConfig/start.sh";
+	exec-once = "sh ./scripts/start.sh";
 	};
     };
 }
