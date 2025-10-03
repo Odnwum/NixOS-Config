@@ -5,7 +5,8 @@
 
 {
   imports =
-    [ (modulesPath + "/installer/scan/not-detected.nix")
+    [
+      (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
   boot.initrd.availableKernelModules = [ "vmd" "xhci_pci" "nvme" "usb_storage" "sd_mod" "rtsx_usb_sdmmc" ];
@@ -16,19 +17,22 @@
   #Enable NTFS filesystem; read windows
   boot.supportedFilesystems = [ "ntfs" ];
 
- fileSystems."/mnt/windows" =
-    { device = "/dev/nvme0n1p3";
+  fileSystems."/mnt/windows" =
+    {
+      device = "/dev/nvme0n1p3";
       fsType = "ntfs-3g";
-      options = [ "rw" "uid=1000"];
+      options = [ "rw" "uid=1000" ];
     };
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/338c5239-bdb8-488b-9657-c1b86457603a";
+    {
+      device = "/dev/disk/by-uuid/338c5239-bdb8-488b-9657-c1b86457603a";
       fsType = "ext4";
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/3CCC-6F77";
+    {
+      device = "/dev/disk/by-uuid/3CCC-6F77";
       fsType = "vfat";
       options = [ "fmask=0077" "dmask=0077" ];
     };

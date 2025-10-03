@@ -6,12 +6,13 @@
 
 {
   imports =
-    [ # Include the results of the hardware scan.
-	./hardware-configuration.nix
-        ./nvf-config.nix
+    [
+      # Include the results of the hardware scan.
+      ./hardware-configuration.nix
+      ./nvf-config.nix
     ];
 
-  nix.settings.experimental-features = ["nix-command" "flakes"];
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
   nix.settings.max-jobs = 4;
 
   # Bootloader.
@@ -92,7 +93,7 @@
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
       kdePackages.kate
-    #  thunderbird
+      #  thunderbird
     ];
   };
 
@@ -113,63 +114,63 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-  obsidian
-  vesktop 
-  onlyoffice-bin
-  vscode
-  gcc
-  python3
-  keepassxc
-  neofetch
-  brightnessctl
-  xournalpp
-  calibre
-  notepadqq
-  python312Packages.pip
-  pipx
-  ffmpeg
-  git
-  p7zip-rar
-  syncthing
-  xdotool
-  waybar
-  dunst
-  libnotify
-  hyprland
-  swww
-  alacritty
-  rofi-wayland
-  networkmanagerapplet
-  wl-clipboard
-  grim
-  slurp
-  xdg-desktop-portal
-  xdg-desktop-portal-wlr
-  zotify
-  gh
-  #  wget
+    obsidian
+    vesktop
+    onlyoffice-bin
+    vscode
+    gcc
+    python3
+    keepassxc
+    neofetch
+    brightnessctl
+    xournalpp
+    calibre
+    notepadqq
+    python312Packages.pip
+    pipx
+    ffmpeg
+    git
+    p7zip-rar
+    syncthing
+    xdotool
+    waybar
+    dunst
+    libnotify
+    hyprland
+    swww
+    alacritty
+    rofi-wayland
+    networkmanagerapplet
+    wl-clipboard
+    grim
+    slurp
+    xdg-desktop-portal
+    xdg-desktop-portal-wlr
+    zotify
+    gh
+    #  wget
   ];
 
   #Download hyperland
   programs.hyprland = {
-      enable = true;
-      xwayland.enable = true;
+    enable = true;
+    xwayland.enable = true;
   };
   services.hypridle.enable = true;
   programs.hyprlock.enable = true;
 
   # fonts
   fonts.packages = with pkgs; [
-	roboto
-	nerd-fonts.roboto-mono
-        nerd-fonts.fira-code
-        nerd-fonts.jetbrains-mono
+    roboto
+    nerd-fonts.roboto-mono
+    nerd-fonts.fira-code
+    nerd-fonts.jetbrains-mono
   ];
 
   # handle how programs handle screen share / file opening etc
   xdg.portal = {
     enable = true;
-    extraPortals = [pkgs.xdg-desktop-portal-gtk];
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
   };
 
   # Automatic updating
@@ -178,30 +179,30 @@
 
   #Automatic cleanup
   nix = {
-      gc = {
-        automatic = true;
-        dates = "daily";
-        options = "--delete-older-than 3d";
-      };
+    gc = {
+      automatic = true;
+      dates = "daily";
+      options = "--delete-older-than 3d";
+    };
 
-      settings = {
-        auto-optimise-store = true;
-      };
+    settings = {
+      auto-optimise-store = true;
+    };
   };
 
   services.auto-cpufreq = {
-        enable = false; 
-        settings = {
-                battery = {
-                        governor = "powersave";
-                        turbo = "never";
-                        };
-                charger = {
-                        governor = "powersave";
-                        turbo = "auto";
-                        };
-                };
-        };
+    enable = false;
+    settings = {
+      battery = {
+        governor = "powersave";
+        turbo = "never";
+      };
+      charger = {
+        governor = "powersave";
+        turbo = "auto";
+      };
+    };
+  };
 
   # List services that you want to enable:
 

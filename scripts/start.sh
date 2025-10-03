@@ -13,4 +13,5 @@ waybar &
 # dunst 
 dunst
 
+# mako
 mako
