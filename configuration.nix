@@ -146,7 +146,7 @@
     slurp
     xdg-desktop-portal
     xdg-desktop-portal-wlr
-    zotify
+    mpv
     gh
     #  wget
   ];

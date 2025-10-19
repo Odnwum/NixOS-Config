@@ -63,9 +63,9 @@ in
         position = "top";
 
         # modules in place 
-        modules-left = [ "battery" "network" "bluetooth" "cpu" "tray" ];
+        modules-left = [ "battery" "network" "bluetooth" "tray" ];
         modules-center = [ "hyprland/workspaces" ];
-        modules-right = [ "custom/volume" "custom/brightness" "clock" ];
+        modules-right = [ "cpu" "custom/volume" "custom/brightness" "clock" ];
 
 
         # battery settings 
@@ -82,6 +82,11 @@ in
           # format-good = ""; # An empty format will hide the module
           # f -full = "";
           format-icons = [ "󰂎" "󰁼" "󰁾" "󰂀" "󰁹" ];
+        };
+
+        "network"= {
+          "format"= "↓ {bandwidthDownBits} ↑ {bandwidthUpBits}";
+          "interval"= 1;
         };
 
         "clock" = {
