@@ -51,6 +51,14 @@ in
     };
   };
 
+  services.hyprpaper = {
+        enable = true; 
+        settings = {
+                preload = ["${config.home.homeDirectory}/Pictures/wallpapers/wallpaper.png"];
+                wallpaper = ["eDP-1,${config.home.homeDirectory}/Pictures/wallpapers/wallpaper.png"];
+                };
+        };
+
   home.packages = with pkgs; [
     libnotify
   ];
@@ -193,7 +201,7 @@ in
         "SUPER, L, exec, hyprlock"
 
         # Sleep system via super shift L 
-        "SUPER_SHIFT, L, exec, systemctl suspend"
+        "SUPER_SHIFT, S, exec, systemctl suspend"
 
 
       ];

@@ -140,6 +140,7 @@
     swww
     alacritty
     rofi-wayland
+    hyprpaper
     networkmanagerapplet
     wl-clipboard
     grim

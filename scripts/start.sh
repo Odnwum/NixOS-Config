@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 
 # initializing wallpaper daemon 
-swww init &
+#swww init & 
+#switched to hyprpaper 
+hyprpaper &
 # setting wallpaper 
 
 # set up network manager 
