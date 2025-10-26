@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 {
   programs.nvf = {
@@ -10,27 +15,26 @@
         style = "darker";
       };
 
-      statusline.lualine.enable = true;  # Status line
-      telescope.enable = true;           # Fuzzy finder
-      git.enable = true;                 # Git integration
+      statusline.lualine.enable = true; # Status line
+      telescope.enable = true; # Fuzzy finder
+      git.enable = true; # Git integration
 
-      snippets.luasnip.enable = true;    # Snippets engine
+      snippets.luasnip.enable = true; # Snippets engine
 
       autocomplete."nvim-cmp".enable = true;
 
       languages = {
         enableTreesitter = true;
         nix.enable = true;
-        python.enable = true;           
+        python.enable = true;
       };
 
       lsp = {
         enable = true;
         servers = {
-          pyright.enable = true;         # Python LSP
+          pyright.enable = true; # Python LSP
         };
       };
     };
   };
 }
-

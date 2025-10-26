@@ -1,4 +1,10 @@
-{ inputs, pkgs, config, ... }:
+{
+  inputs,
+  pkgs,
+  config,
+  zen-browser,
+  ...
+}:
 let
   scriptsPath = "${config.home.homeDirectory}/.dotfiles/scripts";
 in
@@ -8,7 +14,6 @@ in
   home.stateVersion = "24.05";
 
   programs.home-manager.enable = true;
-
 
   programs.alacritty = {
     enable = true;
@@ -36,7 +41,7 @@ in
     };
   };
 
-  # Notifications 
+  # Notifications
   services.mako = {
     enable = true;
     settings = {
@@ -52,15 +57,16 @@ in
   };
 
   services.hyprpaper = {
-        enable = true; 
-        settings = {
-                preload = ["${config.home.homeDirectory}/Pictures/wallpapers/wallpaper.png"];
-                wallpaper = ["eDP-1,${config.home.homeDirectory}/Pictures/wallpapers/wallpaper.png"];
-                };
-        };
+    enable = true;
+    settings = {
+      preload = [ "${config.home.homeDirectory}/Pictures/wallpapers/wallpaper.png" ];
+      wallpaper = [ "eDP-1,${config.home.homeDirectory}/Pictures/wallpapers/wallpaper.png" ];
+    };
+  };
 
   home.packages = with pkgs; [
     libnotify
+    zen-browser.packages.${pkgs.system}.default
   ];
 
   programs.waybar = {
@@ -70,13 +76,22 @@ in
         layer = "top";
         position = "top";
 
-        # modules in place 
-        modules-left = [ "battery" "network" "bluetooth" "tray" ];
+        # modules in place
+        modules-left = [
+          "battery"
+          "network"
+          "bluetooth"
+          "tray"
+        ];
         modules-center = [ "hyprland/workspaces" ];
-        modules-right = [ "cpu" "custom/volume" "custom/brightness" "clock" ];
+        modules-right = [
+          "cpu"
+          "custom/volume"
+          "custom/brightness"
+          "clock"
+        ];
 
-
-        # battery settings 
+        # battery settings
         "battery" = {
           states = {
             good = 80;
@@ -89,12 +104,18 @@ in
           format-alt = "{time} {icon}";
           # format-good = ""; # An empty format will hide the module
           # f -full = "";
-          format-icons = [ "󰂎" "󰁼" "󰁾" "󰂀" "󰁹" ];
+          format-icons = [
+            "󰂎"
+            "󰁼"
+            "󰁾"
+            "󰂀"
+            "󰁹"
+          ];
         };
 
-        "network"= {
-          "format"= "↓ {bandwidthDownBits} ↑ {bandwidthUpBits}";
-          "interval"= 1;
+        "network" = {
+          "format" = "↓ {bandwidthDownBits} ↑ {bandwidthUpBits}";
+          "interval" = 1;
         };
 
         "clock" = {
@@ -115,7 +136,7 @@ in
           return-type = "json";
         };
 
-        # hyprland workspaces settings 
+        # hyprland workspaces settings
         "hyprland/workspaces" = {
           "persistent-workspaces" = {
             "*" = 5;
@@ -156,12 +177,12 @@ in
     xwayland.enable = true;
     settings = {
       bind = [
-        # Overall hotkeys 
-        "SUPER, T, exec, alacritty" # launch alacritty 
+        # Overall hotkeys
+        "SUPER, T, exec, alacritty" # launch alacritty
         "SUPER, S, exec, rofi -show drun -show-icons" # Launches rofi app launcher
-        "SUPER, Q, killactive" # Kill active window 
+        "SUPER, Q, killactive" # Kill active window
 
-        # Function keys 
+        # Function keys
         # Brightness
         ", XF86MonBrightnessUp, exec, brightnessctl set +5%"
         ", XF86MonBrightnessDown, exec, brightnessctl set 5%- -n 1"
@@ -171,9 +192,9 @@ in
         ",XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
         ",XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
 
-        # Workspace 
+        # Workspace
         "SUPER, 1, workspace, 1" # Switch to workspace 1
-        "SUPER, 2, workspace, 2" # Switch to workspace 2 
+        "SUPER, 2, workspace, 2" # Switch to workspace 2
         "SUPER, 3, workspace, 3" # Switch to workspace 3
         "SUPER, 4, workspace, 4"
         "SUPER, 5, workspace, 5"
@@ -194,15 +215,14 @@ in
         "SUPER_SHIFT, up, swapwindow, u"
         "SUPER_SHIFT, down, swapwindow, d"
 
-        # Configure screen shot 
+        # Configure screen shot
         ", Print, exec, grim -g \"$(slurp -d)\" - | wl-copy"
 
-        # Lock screen via mod L 
+        # Lock screen via mod L
         "SUPER, L, exec, hyprlock"
 
-        # Sleep system via super shift L 
+        # Sleep system via super shift L
         "SUPER_SHIFT, S, exec, systemctl suspend"
-
 
       ];
       monitor = "eDP-1, 1920x1080@60, 0x0, 1";

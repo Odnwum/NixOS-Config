@@ -2,17 +2,25 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, inputs, ... }:
+{
+  config,
+  pkgs,
+  inputs,
+  zen-browser,
+  ...
+}:
 
 {
-  imports =
-    [
-      # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ./nvf-config.nix
-    ];
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    ./nvf-config.nix
+  ];
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
   nix.settings.max-jobs = 4;
 
   # Bootloader.
@@ -90,21 +98,25 @@
   users.users.odnwum = {
     isNormalUser = true;
     description = "Odnwum";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+    ];
     packages = with pkgs; [
       kdePackages.kate
       #  thunderbird
     ];
   };
 
-  # balls home manager
   home-manager = {
-    # extraSpecialArgs = {inherit inputs;};
-    users = {
-      "odnwum" = import ./home.nix;
+    extraSpecialArgs = {
+      inherit zen-browser;
+    };
+
+    users.odnwum = {
+      imports = [ ./home.nix ];
     };
   };
-
   # Install firefox.
   programs.firefox.enable = true;
 
@@ -149,6 +161,9 @@
     xdg-desktop-portal-wlr
     mpv
     gh
+    libgbm
+    nixfmt-rfc-style
+    nixfmt-tree
     #  wget
   ];
 
