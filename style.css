@@ -1,0 +1,24 @@
+waybar * {
+        border: 4px;
+        border-radius: 4px;
+        min-height: 0;
+        font-family: "JetBrainsMono Nerd Font";
+        font-size: 14px;
+      }
+
+#waybar {
+        background-color: #3b4252;
+        border-radius: 2px;
+        opacity: 0.95;
+      }
+
+window#waybar {
+        background: #282c34;
+        transition-property: background-color;
+        transition-duration: 0.5s;
+        color: #9cdef2;
+        border: 3px solid #61afef;
+        border-left: 3px solid #56b6c2;
+        border-right: 3px solid #56b6c2;
+      }
+
