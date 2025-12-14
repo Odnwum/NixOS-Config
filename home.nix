@@ -36,8 +36,14 @@ in
 
   programs.git = {
     enable = true;
+
+    aliases = {
+      fpush = "push --force-with-lease";
+      alog = "log --oneline --graph";
+    };
+
     extraConfig = {
-      init.defaultBranch = "main";
+      init.defaultBranch = "master";
     };
   };
 
@@ -67,6 +73,7 @@ in
   home.packages = with pkgs; [
     libnotify
     zen-browser.packages.${pkgs.system}.default
+    devenv
   ];
 
   programs.waybar = {
@@ -145,7 +152,7 @@ in
         };
       };
     };
-    style = builtins.readFile("${scriptsPath}/../style.css"); 
+    style = builtins.readFile ("${scriptsPath}/../style.css");
   };
 
   wayland.windowManager.hyprland = {
